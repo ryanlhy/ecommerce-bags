@@ -15,6 +15,7 @@ const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+  // asiox is like fetching api
   useEffect(() => {
     const getProducts = async () => {
       try {
