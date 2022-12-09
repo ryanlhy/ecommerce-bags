@@ -38,7 +38,7 @@ const Wrapper = styled.div`
   transition: all 1.5s ease;
   transform: translateX(${(props) => props.slideIndex * -100}vw);
 `;
-// translateX changes the slide on x axis. vw - 1% of viewport
+
 const Slide = styled.div`
   width: 100vw;
   height: 100vh;

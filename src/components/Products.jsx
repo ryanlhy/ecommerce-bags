@@ -15,7 +15,6 @@ const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  // asiox is like fetching api
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -59,15 +58,11 @@ const Products = ({ cat, filters, sort }) => {
 
   return (
     <Container>
-      {/* {cat
+      {cat
         ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
         : products
             .slice(0, 8)
-            .map((item) => <Product item={item} key={item.id} />)} */}
-          {/* note: popularProducts is only a placeholder. actual is filteredProducts*/}
-        {popularProducts.map((item) => (
-          <Product item={item} key={item.id} />
-        ))}
+            .map((item) => <Product item={item} key={item.id} />)}
     </Container>
   );
 };
