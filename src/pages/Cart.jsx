@@ -9,6 +9,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useHistory } from "react-router";
+import { addProduct } from "../redux/cartRedux";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -182,6 +183,27 @@ const Cart = () => {
     };
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, history]);
+
+  // useEffect(() => {
+  //   const makeRequest = async () => {
+  //     try {
+  //       const res = await userRequest.post("http://localhost:5000/api/carts/", {
+  //         userID: "2",
+  //         products: [
+  //           {
+  //               "productId": "123",
+  //               "quantity": 1
+  //           }
+  //       ]
+  //       });
+  //       history.push("/success", {
+  //         stripeData: res.data,
+  //         products: cart, });
+  //     } catch {}
+  //   };
+  //   stripeToken && makeRequest();
+  // }, [stripeToken, cart.total, history]);
+
   return (
     <Container>
       <Navbar />
