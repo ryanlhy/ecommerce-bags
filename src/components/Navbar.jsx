@@ -74,15 +74,15 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
-          <SearchContainer>
+          {/* <Language>EN</Language> */}
+          {/* <SearchContainer>
             <Input placeholder="Search" />
             <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
+          </SearchContainer> */}
         </Left>
         <Center>
           <Link to ="/" style={{textDecoration: 'none'}}>
-            <Logo>LAMA.</Logo>
+            <Logo>BAGS.</Logo>
           </Link>
         </Center>
         <Right>

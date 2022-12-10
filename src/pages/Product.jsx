@@ -149,7 +149,9 @@ const Product = () => {
 
   const handleClick = () => {
     dispatch(
-      addProduct({ ...product, quantity, color, size })
+      // addProduct({ ...product, quantity, color, size })
+      addProduct({ ...product, quantity,  })
+
     );
   };
   return (
@@ -164,7 +166,7 @@ const Product = () => {
           <Title>{product.title}</Title>
           <Desc>{product.desc}</Desc>
           <Price>$ {product.price}</Price>
-          <FilterContainer>
+          {/* <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
               {product.color?.map((c) => (
@@ -179,7 +181,7 @@ const Product = () => {
                 ))}
               </FilterSize>
             </Filter>
-          </FilterContainer>
+          </FilterContainer> */}
           <AddContainer>
             <AmountContainer>
               <Remove onClick={() => handleQuantity("dec")} />

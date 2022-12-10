@@ -209,14 +209,15 @@ const Cart = () => {
                     <ProductId>
                       <b>ID:</b> {product._id}
                     </ProductId>
-                    <ProductColor color={product.color} />
-                    <ProductSize>
+                    {/* <ProductColor color={product.color} /> */}
+                    {/* <ProductSize>
                       <b>Size:</b> {product.size}
-                    </ProductSize>
+                    </ProductSize> */}
                   </Details>
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
+                    {/*not functional yet */}
                     <Add />
                     <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove />
