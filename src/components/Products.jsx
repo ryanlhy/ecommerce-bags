@@ -26,7 +26,9 @@ const Products = ({ cat, filters, sort }) => {
         );
         console.log(res.data)
         setProducts(res.data);
-      } catch (err) {}
+      } catch (err) {
+        setProducts(0)
+      }
     };
     getProducts();
   }, [cat]);
@@ -67,11 +69,11 @@ const Products = ({ cat, filters, sort }) => {
             .map((item) => <Product item={item} key={item.id} />)} */}
           {/* note: popularProducts is only a placeholder. actual is filteredProducts*/}
         {
-        products===[] ? 
-        products.map((item) => (
+        products===0 ? 
+        popularProducts.map((item) => (
           <Product item={item} key={item._id} />
         )):
-        popularProducts.map((item) => (
+        products.map((item) => (
           <Product item={item} key={item._id} />
         ))}
     </Container>
