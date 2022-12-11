@@ -7,11 +7,11 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
-import { userRequest } from "../requestMethods";
+import { publicRequest, userRequest } from "../requestMethods";
 import { useHistory } from "react-router";
 import { addProduct } from "../redux/cartRedux";
 
-const KEY = process.env.REACT_APP_STRIPE;
+// const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
 
@@ -160,41 +160,31 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
+const CheckoutButton = styled.button`
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+`
+
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const [stripeToken, setStripeToken] = useState(null);
+  // const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
+  const [checkOut, setcheckOut] = useState(false);
 
-  const onToken = (token) => {
-    setStripeToken(token);
-  };
-
-  useEffect(() => {
-    const makeRequest = async () => {
-      try {
-        const res = await userRequest.post("/checkout/payment", {
-          tokenId: stripeToken.id,
-          amount: 500,
-        });
-        history.push("/success", {
-          stripeData: res.data,
-          products: cart, });
-      } catch {}
-    };
-    stripeToken && makeRequest();
-  }, [stripeToken, cart.total, history]);
+  // const onToken = (token) => {
+  //   setStripeToken(token);
+  // };
 
   // useEffect(() => {
   //   const makeRequest = async () => {
   //     try {
-  //       const res = await userRequest.post("http://localhost:5000/api/carts/", {
-  //         userID: "2",
-  //         products: [
-  //           {
-  //               "productId": "123",
-  //               "quantity": 1
-  //           }
-  //       ]
+  //       const res = await userRequest.post("/checkout/payment", {
+  //         tokenId: stripeToken.id,
+  //         amount: 500,
   //       });
   //       history.push("/success", {
   //         stripeData: res.data,
@@ -203,6 +193,44 @@ const Cart = () => {
   //   };
   //   stripeToken && makeRequest();
   // }, [stripeToken, cart.total, history]);
+
+const data = {
+  userId: "4",
+  products: [
+    {
+        "productId": "123",
+        "quantity": 1
+    }
+]
+}
+
+  const handleCheckout = async() => {
+    console.log("handling cart")
+      try {
+            const res = await userRequest.post("http://localhost:5000/api/carts/", data);
+            history.push("/success", {
+              products: cart, });
+          } catch (error) {
+            console.log(error)
+          }
+        
+      //   const res = await fetch("http://localhost:5000/api/carts/", {
+      //     method: "POST",
+      //     body: JSON.stringify(data),
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //   }
+      // })
+      // .then(response => response.json())
+      // .then(data=>{
+      //   console.log(data)
+      //   history.push("/success", {
+      //     products: cart, });
+      // })
+      // .catch (error => {
+      //   console.log(error)
+      // })
+  };
 
   return (
     <Container>
@@ -270,8 +298,8 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
-            <StripeCheckout
-              name="Lama Shop"
+            {/* <StripeCheckout
+              name="Bag Shop"
               image="https://avatars.githubusercontent.com/u/1486366?v=4"
               billingAddress
               shippingAddress
@@ -279,9 +307,11 @@ const Cart = () => {
               amount={cart.total * 100}
               token={onToken}
               stripeKey={KEY}
-            >
+              >
               <Button>CHECKOUT NOW</Button>
-            </StripeCheckout>
+            </StripeCheckout> */}
+              <CheckoutButton onClick={handleCheckout}>CHECKOUT NOW</CheckoutButton>
+
           </Summary>
         </Bottom>
       </Wrapper>

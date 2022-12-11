@@ -2,7 +2,16 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router";
 import { userRequest } from "../requestMethods";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
+const Button = styled.button`
+  cursor: pointer;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-weight: 600;
+`
 const Success = () => {
   const location = useLocation();
   //in Cart.jsx I sent data and cart. Please check that page for the changes.(in video it's only data)
@@ -42,7 +51,9 @@ const Success = () => {
       {orderId
         ? `Order has been created successfully. Your order number is ${orderId}`
         : `Successfull. Your order is being prepared...`}
-      <button style={{ padding: 10, marginTop: 20 }}>Go to Homepage</button>
+      <Link to="/">
+        <Button style={{ padding: 10, marginTop: 20 }}>Go to Homepage</Button>
+      </Link>
     </div>
   );
 };
