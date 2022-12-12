@@ -9,8 +9,9 @@ import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { publicRequest, userRequest } from "../requestMethods";
 import { useHistory } from "react-router";
-import { deleteProduct, clearCart} from "../redux/cartRedux";
+import { deleteProduct, addQuantity, clearCart} from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 // const KEY = process.env.REACT_APP_STRIPE;
 
@@ -237,8 +238,10 @@ const orderData = {
   const handleDelete = (index, id, price, quantity) => {
     dispatch(deleteProduct({index, id, price, quantity}));
   }
-  console.log(cart)
-
+  const handleAddQuantity = (index ) => {
+    dispatch(addQuantity({index }));
+  }
+console.log(cart)
   return (
     <Container>
       <Navbar />
@@ -246,12 +249,14 @@ const orderData = {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <Link to="/">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist (0)</TopText>
+            <TopText>Shopping Bag({cart.products.length})</TopText>
+            {/* <TopText>Your Wishlist (0)</TopText> */}
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type="filled" onClick={handleCheckout}>CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
@@ -275,7 +280,7 @@ const orderData = {
                 <PriceDetail>
                   <ProductAmountContainer>
                     {/*not functional yet */}
-                    <Add />
+                    <Add onClick={()=>handleAddQuantity(index)}/>
                     <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove />
                     <b onClick={()=>handleDelete(index, product._id, product.price, product.quantity)}>Del</b>
