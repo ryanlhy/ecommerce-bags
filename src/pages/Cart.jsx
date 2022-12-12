@@ -9,7 +9,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { publicRequest, userRequest } from "../requestMethods";
 import { useHistory } from "react-router";
-import { addProduct, deleteProduct} from "../redux/cartRedux";
+import { deleteProduct, clearCart} from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 
 // const KEY = process.env.REACT_APP_STRIPE;
@@ -210,7 +210,9 @@ const orderData = {
             const res = await publicRequest.post("https://ecommerce-bags-backend.cyclic.app/orders/", orderData);
             history.push("/success", {
               products: cart, });
+              dispatch(clearCart())
               console.log(orderData)
+
           } catch (error) {
             console.log(error)
           }
