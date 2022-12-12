@@ -22,8 +22,8 @@ const Products = ({ cat, filters, sort }) => {
           // cat
           //   ? `http://localhost:5000/api/products?category=${cat}`
           //   : "http://localhost:5000/api/products"
-            "http://localhost:5000/products" //api here
-            // "https://ecommerce-bags-backend.cyclic.app/products"
+            // "http://localhost:5000/products" //api here
+            "https://ecommerce-bags-backend.cyclic.app/products"
             // , {
             //   headers: {
             //     'Access-Control-Allow-Origin': '*',
