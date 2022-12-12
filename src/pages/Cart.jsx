@@ -9,7 +9,8 @@ import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { publicRequest, userRequest } from "../requestMethods";
 import { useHistory } from "react-router";
-import { addProduct } from "../redux/cartRedux";
+import { addProduct, deleteProduct} from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 // const KEY = process.env.REACT_APP_STRIPE;
 
@@ -174,6 +175,7 @@ const Cart = () => {
   // const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
   const [checkOut, setcheckOut] = useState(false);
+  const dispatch = useDispatch();
 
   // const onToken = (token) => {
   //   setStripeToken(token);
@@ -229,6 +231,10 @@ const data = {
       //   console.log(error)
       // })
   };
+  const handleDelete = (index, id, price, quantity) => {
+    dispatch(deleteProduct({index, id, price, quantity}));
+  }
+  console.log(cart)
 
   return (
     <Container>
@@ -269,7 +275,7 @@ const data = {
                     <Add />
                     <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove />
-                    <b>Del</b>
+                    <b onClick={()=>handleDelete(index, product._id, product.price, product.quantity)}>Del</b>
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}

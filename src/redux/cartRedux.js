@@ -13,8 +13,16 @@ const cartSlice = createSlice({
       state.products.push(action.payload);
       state.total += action.payload.price * action.payload.quantity; //this qty is from product page
     },
+    deleteProduct: (state, action) => {
+      state.products.splice(action.payload.index, 1);
+      // state.products = state.products.filter(
+      //   (product) => product.id !== action.payload.id
+      // );
+      state.quantity = state.products.length;
+      state.total -= action.payload.price * action.payload.quantity;
+    },
   },
 });
 
-export const { addProduct } = cartSlice.actions;
+export const { addProduct, deleteProduct } = cartSlice.actions;
 export default cartSlice.reducer;
