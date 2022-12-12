@@ -204,7 +204,6 @@ const data = {
   const handleCheckout = async() => {
     console.log("handling cart")
     console.log(cart)
-
       try {
             const res = await publicRequest.post("https://ecommerce-bags-backend.cyclic.app/carts/", data);
             history.push("/success", {
@@ -247,8 +246,8 @@ const data = {
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map((product) => (
-              <Product>
+            {cart.products.map((product, index) => (
+              <Product key={index}>
                 <ProductDetail>
                   <Image src={product.img} />
                   <Details>
@@ -270,6 +269,7 @@ const data = {
                     <Add />
                     <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove />
+                    <b>Del</b>
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}

@@ -131,8 +131,9 @@ const Product = () => {
 
   useEffect(() => {
     const getProduct = async () => {
+      console.log(id)
       try {
-        const res = await publicRequest.get("/products/find/" + id);
+        const res = await publicRequest.get("/products/" + id);
         setProduct(res.data);
       } catch {}
     };
