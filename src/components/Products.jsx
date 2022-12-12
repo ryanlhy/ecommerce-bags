@@ -22,7 +22,15 @@ const Products = ({ cat, filters, sort }) => {
           // cat
           //   ? `http://localhost:5000/api/products?category=${cat}`
           //   : "http://localhost:5000/api/products"
-            "http://localhost:5000/api/products" //api here
+            // "http://localhost:5000/api/products" //api here
+            "https://ecommerce-bags-backend.cyclic.app/products"
+            , {
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
+              }
+            }
         );
         console.log(res.data)
         setProducts(res.data);
