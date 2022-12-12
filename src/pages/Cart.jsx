@@ -9,7 +9,7 @@ import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { publicRequest, userRequest } from "../requestMethods";
 import { useHistory } from "react-router";
-import { deleteProduct, addQuantity, clearCart} from "../redux/cartRedux";
+import { deleteProduct, addQuantity, decreaseQuantity, clearCart} from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -238,8 +238,15 @@ const orderData = {
   const handleDelete = (index, id, price, quantity) => {
     dispatch(deleteProduct({index, id, price, quantity}));
   }
-  const handleAddQuantity = (index ) => {
-    dispatch(addQuantity({index }));
+  const handleAddQuantity = (index, price) => {
+    dispatch(addQuantity({index, price}));
+  }
+  const handleDecreaseQuantity = (index, price, checkQuantity) => {
+    if (checkQuantity === 1) {
+      return;
+    } else {
+      dispatch(decreaseQuantity({index, price}));
+    }
   }
 console.log(cart)
   return (
@@ -280,9 +287,9 @@ console.log(cart)
                 <PriceDetail>
                   <ProductAmountContainer>
                     {/*not functional yet */}
-                    <Add onClick={()=>handleAddQuantity(index)}/>
+                    <Add onClick={()=>handleAddQuantity(index, product.price)}/>
                     <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
+                    <Remove onClick={()=>handleDecreaseQuantity(index, product.price, product.quantity)} />
                     <b onClick={()=>handleDelete(index, product._id, product.price, product.quantity)}>Del</b>
                   </ProductAmountContainer>
                   <ProductPrice>
