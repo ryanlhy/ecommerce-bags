@@ -196,8 +196,9 @@ const Cart = () => {
   //   stripeToken && makeRequest();
   // }, [stripeToken, cart.total, history]);
 
-const data = {
-  userId: "5",
+const orderData = {
+  userId: "guest",
+  productId: cart.products,
   products: cart.products,
   amount: cart.total,
   address: "address",
@@ -205,11 +206,11 @@ const data = {
 
   const handleCheckout = async() => {
     console.log("handling cart")
-    console.log(cart)
       try {
-            const res = await publicRequest.post("https://ecommerce-bags-backend.cyclic.app/carts/", data);
+            const res = await publicRequest.post("https://ecommerce-bags-backend.cyclic.app/orders/", orderData);
             history.push("/success", {
               products: cart, });
+              console.log(orderData)
           } catch (error) {
             console.log(error)
           }
