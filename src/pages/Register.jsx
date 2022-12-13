@@ -74,9 +74,8 @@ const Register = () => {
     const auth = getAuth();
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log("user", user.user.uid);
-      const userUid = user.user.uid;
-      dispatch(loginSuccess(userUid)); // save uid in redux local storage
+      const getUserId = user.user.uid;
+      dispatch(loginSuccess({getUserId, email})); // save uid in redux local storage
       history.push("/"); // redirect to home page
     } catch (error) {
       console.log(error);

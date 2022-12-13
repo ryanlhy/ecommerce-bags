@@ -6,7 +6,8 @@ const userSlice = createSlice({
     currentUser: null,
     isFetching: false,
     error: false,
-    uid: "",
+    userId: "",
+    email: "",
   },
   reducers: {
     loginStart: (state) => {
@@ -14,8 +15,9 @@ const userSlice = createSlice({
     },
     loginSuccess: (state, action) => {
       state.isFetching = false;
-      state.currentUser = action.payload;
-      state.uid = action.payload;
+      state.currentUser = action.payload.email;
+      state.userId = action.payload.userUid;
+      state.email = action.payload.email;
     },
     loginFailure: (state) => {
       state.isFetching = false;
@@ -23,7 +25,8 @@ const userSlice = createSlice({
     },
     logout: (state) => {
       state.currentUser = null;
-      state.uid = "";
+      state.userId = "";
+      state.email = "";
     },
   },
 });

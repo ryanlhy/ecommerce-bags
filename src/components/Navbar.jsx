@@ -72,7 +72,7 @@ const MenuItem = styled.div`
 const Navbar = () => {
   const dispatch = useDispatch();
   const quantity = useSelector(state=>state.cart.quantity);
-  const user = useSelector(state=>state.user.currentUser);
+  const email = useSelector(state=>state.user.email);
 
   const handleTestLogin = () => {
     console.log("test login");
@@ -83,6 +83,7 @@ const Navbar = () => {
     console.log("logout");
     dispatch(logout())
   }
+  console.log(email)
   return (
     <Container>
       <Wrapper>
@@ -99,7 +100,7 @@ const Navbar = () => {
           </Link>
         </Center>
         <Right>
-          {user === null ? 
+          {email === "" ? 
             <>
               <Link to ="/login" style={{textDecoration: 'none'}}>
                 <MenuItem>SIGN IN</MenuItem>
@@ -111,7 +112,7 @@ const Navbar = () => {
             </>
             : 
             <>
-              <MenuItem>{"Hi " + user}</MenuItem>
+              <MenuItem>{"Hi " + email}</MenuItem>
               <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
             </>
           }

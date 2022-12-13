@@ -77,15 +77,16 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isFetching, error } = useSelector((state) => state.user);
+  const { isFetching, error, userId } = useSelector((state) => state.user);
 
   const handleClick = async(e) => {
     e.preventDefault();
+    // get the user UID from firebase
     const auth = getAuth();
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
-      const userUid = user.user.uid;
-      dispatch(loginSuccess(userUid));
+      const getUserId = user.user.uid;
+      dispatch(loginSuccess({getUserId, email}));
       history.push("/"); // redirect to home page
     } catch (err) {
       console.log(err)
