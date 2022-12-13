@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
+import Navbar from "../components/Navbar";
 
 const Container = styled.div`
   width: 100vw;
@@ -79,6 +80,8 @@ const Login = () => {
     login(dispatch, { username, password });
   };
   return (
+    <>
+    <Navbar />
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
@@ -86,12 +89,12 @@ const Login = () => {
           <Input
             placeholder="username"
             onChange={(e) => setUsername(e.target.value)}
-          />
+            />
           <Input
             placeholder="password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
-          />
+            />
           <Button onClick={handleClick} disabled={isFetching}>
             LOGIN
           </Button>
@@ -101,6 +104,7 @@ const Login = () => {
         </Form>
       </Wrapper>
     </Container>
+    </>
   );
 };
 

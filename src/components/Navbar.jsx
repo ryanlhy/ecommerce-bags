@@ -83,8 +83,6 @@ const Navbar = () => {
     console.log("logout");
     dispatch(logout())
   }
-
-  console.log(useSelector(state=>state.user.currentUser))
   return (
     <Container>
       <Wrapper>
@@ -103,18 +101,18 @@ const Navbar = () => {
         <Right>
           {user === null ? 
             <>
-          <Link to ="/login" style={{textDecoration: 'none'}}>
-            <MenuItem>SIGN IN</MenuItem>
-            </Link>
-          <Link to ="/register" style={{textDecoration: 'none'}}>
-            <MenuItem>REGISTER</MenuItem>
-            </Link> 
-            <MenuItem onClick={handleTestLogin}>Test Login</MenuItem>
+              <Link to ="/login" style={{textDecoration: 'none'}}>
+                <MenuItem>SIGN IN</MenuItem>
+                </Link>
+              <Link to ="/register" style={{textDecoration: 'none'}}>
+                <MenuItem>REGISTER</MenuItem>
+              </Link> 
+              <MenuItem onClick={handleTestLogin}>Test Login</MenuItem>
             </>
             : 
             <>
-            <MenuItem>{user}</MenuItem>
-            <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
+              <MenuItem>{user}</MenuItem>
+              <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
             </>
           }
           <Link to="/cart">

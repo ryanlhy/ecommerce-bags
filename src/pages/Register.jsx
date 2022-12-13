@@ -1,5 +1,11 @@
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
+import { useState } from "react";
+import { publicRequest } from "../requestMethods";
+import { loginSuccess } from "../redux/userRedux";
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -55,17 +61,51 @@ const Button = styled.button`
 `;
 
 const Register = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const onSubmit = async(e) => {
+    e.preventDefault();
+    const formData = {
+      name: name,
+      lastName: lastName,
+      username: username,
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+    }
+    console.log("handleCreateUser");
+    console.log(formData);
+
+
+    try {
+      const res = await publicRequest.post("https://ecommerce-bags-backend.cyclic.app/users", formData);
+      dispatch(loginSuccess(formData.name));
+      history("/");
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
   return (
+    <>
+    <Navbar/>
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
-        <Form>
-          <Input placeholder="name" />
-          <Input placeholder="last name" />
-          <Input placeholder="username" />
-          <Input placeholder="email" />
-          <Input placeholder="password" />
-          <Input placeholder="confirm password" />
+        <Form onSubmit={onSubmit}>
+          <Input onChange={(e) => setName(e.target.value)} placeholder="name" />
+          <Input onChange={(e) => setLastName(e.target.value)} placeholder="last name" />
+          <Input onChange={(e) => setUsername(e.target.value)} placeholder="username" />
+          <Input onChange={(e) => setEmail(e.target.value)} placeholder="email" />
+          <Input onChange={(e) => setPassword(e.target.value)} placeholder="password" />
+          <Input onChange={(e) => setConfirmPassword(e.target.value)} placeholder="confirm password" />
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
@@ -74,6 +114,7 @@ const Register = () => {
         </Form>
       </Wrapper>
     </Container>
+    </>
   );
 };
 
