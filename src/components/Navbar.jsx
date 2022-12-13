@@ -111,7 +111,7 @@ const Navbar = () => {
             </>
             : 
             <>
-              <MenuItem>{user}</MenuItem>
+              <MenuItem>{"Hi " + user}</MenuItem>
               <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
             </>
           }

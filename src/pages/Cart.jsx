@@ -216,7 +216,10 @@ const orderData = {
   const handleCheckout = async() => {
     console.log("handling cart")
       try {
-            const res = await publicRequest.post("https://ecommerce-bags-backend.cyclic.app/orders/", orderData);
+            const res = await publicRequest.post(
+              "https://ecommerce-bags-backend.cyclic.app/orders/"
+              // "http://localhost:5000/orders/"
+            , orderData);
             history.push("/success", {
               cartSuccess: cart, 
               orderData: orderData});

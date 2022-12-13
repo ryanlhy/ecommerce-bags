@@ -4,8 +4,9 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods";
-import { loginSuccess } from "../redux/userRedux";
+import { loginSuccess, setUid } from "../redux/userRedux";
 import { useHistory } from "react-router-dom";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
 const Container = styled.div`
   width: 100vw;
@@ -63,31 +64,20 @@ const Button = styled.button`
 const Register = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [username, setUsername] = useState("");
+  // const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
 
   const onSubmit = async(e) => {
     e.preventDefault();
-    const formData = {
-      name: name,
-      lastName: lastName,
-      username: username,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-    }
-    console.log("handleCreateUser");
-    console.log(formData);
-
-
+    const auth = getAuth();
     try {
-      const res = await publicRequest.post("https://ecommerce-bags-backend.cyclic.app/users", formData);
-      dispatch(loginSuccess(formData.name));
-      history("/");
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log("user", user.user.uid);
+      const userUid = user.user.uid;
+      dispatch(setUid(userUid)); // save uid in redux local storage
+      history.push("/"); // redirect to home page
     } catch (error) {
       console.log(error);
     }
@@ -100,12 +90,10 @@ const Register = () => {
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form onSubmit={onSubmit}>
-          <Input onChange={(e) => setName(e.target.value)} placeholder="name" />
-          <Input onChange={(e) => setLastName(e.target.value)} placeholder="last name" />
-          <Input onChange={(e) => setUsername(e.target.value)} placeholder="username" />
+          {/* <Input onChange={(e) => setName(e.target.value)} placeholder="name" /> */}
           <Input onChange={(e) => setEmail(e.target.value)} placeholder="email" />
           <Input onChange={(e) => setPassword(e.target.value)} placeholder="password" />
-          <Input onChange={(e) => setConfirmPassword(e.target.value)} placeholder="confirm password" />
+          {/* <Input onChange={(e) => setConfirmPassword(e.target.value)} placeholder="confirm password" /> */}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
