@@ -1,4 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
+import { TextField } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
@@ -15,7 +16,9 @@ import { Link } from "react-router-dom";
 
 // const KEY = process.env.REACT_APP_STRIPE;
 
-const Container = styled.div``;
+const Container = styled.div`
+  min-height: 100vh;
+`;
 
 const Wrapper = styled.div`
   padding: 20px;
@@ -135,7 +138,7 @@ const Summary = styled.div`
   border: 0.5px solid lightgray;
   border-radius: 10px;
   padding: 20px;
-  height: 50vh;
+  height: 60vh;
 `;
 
 const SummaryTitle = styled.h1`
@@ -177,6 +180,9 @@ const Cart = () => {
   const history = useHistory();
   const [checkOut, setcheckOut] = useState(false);
   const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
 
   // const onToken = (token) => {
   //   setStripeToken(token);
@@ -199,10 +205,12 @@ const Cart = () => {
 
 const orderData = {
   userId: "guest",
+  name: name, // need to add to schema
   productId: cart.products,
   products: cart.products,
   amount: cart.total,
-  address: "address",
+  address: address,
+  email: email, // need to add to schema
 }
 
   const handleCheckout = async() => {
@@ -210,10 +218,10 @@ const orderData = {
       try {
             const res = await publicRequest.post("https://ecommerce-bags-backend.cyclic.app/orders/", orderData);
             history.push("/success", {
-              products: cart, });
-              dispatch(clearCart())
+              cartSuccess: cart, 
+              orderData: orderData});
               console.log(orderData)
-
+              dispatch(clearCart())
           } catch (error) {
             console.log(error)
           }
@@ -248,6 +256,17 @@ const orderData = {
       dispatch(decreaseQuantity({index, price}));
     }
   }
+  const handleChange = (e) => {
+    const {id, value} = e.target;
+    if (id === "name") {
+      setName(value);
+    } else if (id === "email") {
+      setEmail(value);
+    } else if (id === "address") {
+      setAddress(value);
+    }
+  }
+
 console.log(cart)
   return (
     <Container>
@@ -286,7 +305,6 @@ console.log(cart)
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    {/*not functional yet */}
                     <Add onClick={()=>handleAddQuantity(index, product.price)}/>
                     <ProductAmount>{product.quantity}</ProductAmount>
                     <Remove onClick={()=>handleDecreaseQuantity(index, product.price, product.quantity)} />
@@ -317,6 +335,15 @@ console.log(cart)
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+            </SummaryItem>
+            <SummaryItem>
+              <TextField onChange={handleChange} fullWidth id="name" label="Name" variant="outlined" />
+            </SummaryItem>
+            <SummaryItem>
+              <TextField onChange={handleChange} fullWidth id="address" label="Address" variant="outlined" />
+            </SummaryItem>
+            <SummaryItem>
+              <TextField onChange={handleChange} fullWidth id="email" label="Email" variant="outlined" />
             </SummaryItem>
             {/* <StripeCheckout
               name="Bag Shop"
