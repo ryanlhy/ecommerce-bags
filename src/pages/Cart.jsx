@@ -267,7 +267,6 @@ const orderData = {
     }
   }
 
-console.log(cart)
   return (
     <Container>
       <Navbar />

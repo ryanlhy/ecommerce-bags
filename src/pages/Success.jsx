@@ -53,8 +53,8 @@ const Success = () => {
         ? `Order has been created successfully. Your order number is ${orderId}`
         : `Successfull. Your order is being prepared... `}
         <h4>
-          {cart.products.map((item) => (
-            <div>
+          {cart.products.map((item, index) => (
+            <div key={index}>
               {item.title + " X" + item.quantity}
             </div>
           ))
