@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { useState } from "react";
 import { publicRequest } from "../requestMethods";
-import { loginSuccess, setUid } from "../redux/userRedux";
+import { loginSuccess } from "../redux/userRedux";
 import { useHistory } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
 
@@ -76,7 +76,7 @@ const Register = () => {
       const user = await createUserWithEmailAndPassword(auth, email, password);
       console.log("user", user.user.uid);
       const userUid = user.user.uid;
-      dispatch(setUid(userUid)); // save uid in redux local storage
+      dispatch(loginSuccess(userUid)); // save uid in redux local storage
       history.push("/"); // redirect to home page
     } catch (error) {
       console.log(error);

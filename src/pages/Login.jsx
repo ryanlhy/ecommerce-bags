@@ -4,6 +4,9 @@ import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
+import { signInWithEmailAndPassword, getAuth, getAdditionalUserInfo, isSignInWithEmailLink} from "firebase/auth";
+import { loginSuccess } from "../redux/userRedux";
+import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -70,14 +73,23 @@ const Error = styled.span`
 `;
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const history = useHistory();
   const { isFetching, error } = useSelector((state) => state.user);
 
-  const handleClick = (e) => {
+  const handleClick = async(e) => {
     e.preventDefault();
-    login(dispatch, { username, password });      
+    const auth = getAuth();
+    try {
+      const user = await signInWithEmailAndPassword(auth, email, password);
+      const userUid = user.user.uid;
+      dispatch(loginSuccess(userUid));
+      history.push("/"); // redirect to home page
+    } catch (err) {
+      console.log(err)
+    }
   };
   return (
     <>
@@ -88,7 +100,7 @@ const Login = () => {
         <Form>
           <Input
             placeholder="username"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             />
           <Input
             placeholder="password"
