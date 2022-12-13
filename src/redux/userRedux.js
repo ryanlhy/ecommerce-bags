@@ -3,8 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    currentUser: null,
-    isFetching: false,
+    isFetching: false, // for sign in and register page loading effect
     error: false,
     userId: "",
     email: "",
@@ -15,7 +14,6 @@ const userSlice = createSlice({
     },
     loginSuccess: (state, action) => {
       state.isFetching = false;
-      state.currentUser = action.payload.email;
       state.userId = action.payload.userUid;
       state.email = action.payload.email;
     },
@@ -24,7 +22,8 @@ const userSlice = createSlice({
       state.error = true;
     },
     logout: (state) => {
-      state.currentUser = null;
+      state.isFetching = false;
+      state.error = false;
       state.userId = "";
       state.email = "";
     },

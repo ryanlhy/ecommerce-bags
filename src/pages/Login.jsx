@@ -5,7 +5,7 @@ import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
 import { signInWithEmailAndPassword, getAuth, getAdditionalUserInfo, isSignInWithEmailLink} from "firebase/auth";
-import { loginSuccess } from "../redux/userRedux";
+import { loginStart, loginSuccess } from "../redux/userRedux";
 import { useHistory } from "react-router-dom";
 
 const Container = styled.div`
@@ -77,7 +77,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isFetching, error, userId } = useSelector((state) => state.user);
+  const { isFetching, error } = useSelector((state) => state.user);
 
   const handleClick = async(e) => {
     e.preventDefault();
@@ -86,12 +86,14 @@ const Login = () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
       const getUserId = user.user.uid;
+      dispatch(loginStart())
       dispatch(loginSuccess({getUserId, email}));
       history.push("/"); // redirect to home page
     } catch (err) {
       console.log(err)
     }
   };
+  console.log(error)
   return (
     <>
     <Navbar />

@@ -7,6 +7,7 @@ import { publicRequest } from "../requestMethods";
 import { loginSuccess } from "../redux/userRedux";
 import { useHistory } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   width: 100vw;
@@ -68,6 +69,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("");
+  const isFetching = useSelector((state) => state.user.isFetching);
 
   const onSubmit = async(e) => {
     e.preventDefault();
@@ -97,7 +99,7 @@ const Register = () => {
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button>CREATE</Button>
+          <Button disabled={isFetching}>CREATE</Button>
         </Form>
       </Wrapper>
     </Container>
