@@ -3,8 +3,9 @@ import { Search, ShoppingCartOutlined } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { loginSuccess, logout } from "../redux/userRedux";
 
 const Container = styled.div`
   height: 60px;
@@ -69,7 +70,21 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
-  const quantity = useSelector(state=>state.cart.quantity)
+  const dispatch = useDispatch();
+  const quantity = useSelector(state=>state.cart.quantity);
+  const user = useSelector(state=>state.user.currentUser);
+
+  const handleTestLogin = () => {
+    console.log("test login");
+    dispatch(loginSuccess("Test User"))
+  }
+
+  const handleLogout = () => {
+    console.log("logout");
+    dispatch(logout())
+  }
+
+  console.log(useSelector(state=>state.user.currentUser))
   return (
     <Container>
       <Wrapper>
@@ -86,12 +101,22 @@ const Navbar = () => {
           </Link>
         </Center>
         <Right>
+          {user === null ? 
+            <>
           <Link to ="/login" style={{textDecoration: 'none'}}>
             <MenuItem>SIGN IN</MenuItem>
             </Link>
           <Link to ="/register" style={{textDecoration: 'none'}}>
             <MenuItem>REGISTER</MenuItem>
-            </Link>
+            </Link> 
+            <MenuItem onClick={handleTestLogin}>Test Login</MenuItem>
+            </>
+            : 
+            <>
+            <MenuItem>{user}</MenuItem>
+            <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
+            </>
+          }
           <Link to="/cart">
           <MenuItem>
             <Badge overlap="rectangular" badgeContent={quantity} color="primary">
