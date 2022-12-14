@@ -13,8 +13,6 @@ import { deleteProduct, addQuantity, decreaseQuantity, clearCart} from "../redux
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-// const KEY = process.env.REACT_APP_STRIPE;
-
 const Container = styled.div`
   min-height: 100vh;
 `;

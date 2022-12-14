@@ -13,20 +13,18 @@ import {
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import {initializeApp} from "firebase/app";
-import { apiKey } from "./config";
-import * as dotenv from "dotenv";
-// require('dotenv').config()
+// import * as dotenv from "dotenv";
+// import env from "react-dotenv"
+require('dotenv').config()
 
-dotenv.config();
-
-// const apiKey = process.env.REACT_APP_FIREBASE_API_KEY
+// dotenv.config();
+const apiKey = process.env.REACT_APP_FIREBASE_API_KEY;
 initializeApp({
   apiKey,
 });
-console.log(apiKey)
 
 const App = () => {
-  const user = useSelector((state) => state.user.currentUser);
+  const user = useSelector((state) => state.user.userId);
   return (
     <Router>
       <Switch>
