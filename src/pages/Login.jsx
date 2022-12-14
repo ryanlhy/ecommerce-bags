@@ -1,10 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { login } from "../redux/apiCalls";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/Navbar";
-import { signInWithEmailAndPassword, getAuth, getAdditionalUserInfo, isSignInWithEmailLink} from "firebase/auth";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { loginStart, loginSuccess } from "../redux/userRedux";
 import { useHistory } from "react-router-dom";
 
@@ -86,14 +85,14 @@ const Login = () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
       const getUserId = user.user.uid;
-      dispatch(loginStart())
+      dispatch(loginStart)
       dispatch(loginSuccess({getUserId, email}));
       history.push("/"); // redirect to home page
     } catch (err) {
       console.log(err)
     }
   };
-  console.log(error)
+
   return (
     <>
     <Navbar />

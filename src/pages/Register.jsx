@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { useState } from "react";
-import { publicRequest } from "../requestMethods";
 import { loginSuccess } from "../redux/userRedux";
 import { useHistory } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";

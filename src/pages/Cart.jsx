@@ -6,9 +6,8 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import StripeCheckout from "react-stripe-checkout";
-import { useEffect, useState } from "react";
-import { publicRequest, userRequest } from "../requestMethods";
+import { useState } from "react";
+import { publicRequest } from "../requestMethods";
 import { useHistory } from "react-router";
 import { deleteProduct, addQuantity, decreaseQuantity, clearCart} from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
@@ -92,15 +91,6 @@ const ProductName = styled.span``;
 
 const ProductId = styled.span``;
 
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-`;
-
-const ProductSize = styled.span``;
-
 const PriceDetail = styled.div`
   flex: 1;
   display: flex;
@@ -157,14 +147,6 @@ const SummaryItemText = styled.span``;
 
 const SummaryItemPrice = styled.span``;
 
-const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  font-weight: 600;
-`;
-
 const CheckoutButton = styled.button`
   cursor: pointer;
   width: 100%;
@@ -178,45 +160,25 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   // const [stripeToken, setStripeToken] = useState(null);
   const history = useHistory();
-  const [checkOut, setcheckOut] = useState(false);
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
 
-  // const onToken = (token) => {
-  //   setStripeToken(token);
-  // };
-
-  // useEffect(() => {
-  //   const makeRequest = async () => {
-  //     try {
-  //       const res = await userRequest.post("/checkout/payment", {
-  //         tokenId: stripeToken.id,
-  //         amount: 500,
-  //       });
-  //       history.push("/success", {
-  //         stripeData: res.data,
-  //         products: cart, });
-  //     } catch {}
-  //   };
-  //   stripeToken && makeRequest();
-  // }, [stripeToken, cart.total, history]);
-
 const orderData = {
   userId: "guest",
-  name: name, // need to add to schema
+  name: name,
   productId: cart.products,
   products: cart.products,
   amount: cart.total,
   address: address,
-  email: email, // need to add to schema
+  email: email,
 }
 
   const handleCheckout = async() => {
     console.log("handling cart")
       try {
-            const res = await publicRequest.post(
+            await publicRequest.post(
               "https://ecommerce-bags-backend.cyclic.app/orders/"
               // "http://localhost:5000/orders/"
             , orderData);
@@ -228,23 +190,6 @@ const orderData = {
           } catch (error) {
             console.log(error)
           }
-        
-      //   const res = await fetch("http://localhost:5000/api/carts/", {
-      //     method: "POST",
-      //     body: JSON.stringify(data),
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //   }
-      // })
-      // .then(response => response.json())
-      // .then(data=>{
-      //   console.log(data)
-      //   history.push("/success", {
-      //     products: cart, });
-      // })
-      // .catch (error => {
-      //   console.log(error)
-      // })
   };
   const handleDelete = (index, id, price, quantity) => {
     dispatch(deleteProduct({index, id, price, quantity}));
@@ -299,10 +244,6 @@ const orderData = {
                     <ProductId>
                       <b>ID:</b> {product._id}
                     </ProductId>
-                    {/* <ProductColor color={product.color} /> */}
-                    {/* <ProductSize>
-                      <b>Size:</b> {product.size}
-                    </ProductSize> */}
                   </Details>
                 </ProductDetail>
                 <PriceDetail>
@@ -347,18 +288,6 @@ const orderData = {
             <SummaryItem>
               <TextField onChange={handleChange} fullWidth id="email" label="Email" variant="outlined" />
             </SummaryItem>
-            {/* <StripeCheckout
-              name="Bag Shop"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
-              billingAddress
-              shippingAddress
-              description={`Your total is $${cart.total}`}
-              amount={cart.total * 100}
-              token={onToken}
-              stripeKey={KEY}
-              >
-              <Button>CHECKOUT NOW</Button>
-            </StripeCheckout> */}
               <CheckoutButton onClick={handleCheckout}>CHECKOUT NOW</CheckoutButton>
 
           </Summary>
