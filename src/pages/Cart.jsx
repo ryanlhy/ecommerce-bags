@@ -158,11 +158,11 @@ const CheckoutButton = styled.button`
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  // const [stripeToken, setStripeToken] = useState(null);
+  const userEmail = useSelector((state) => state.user.email);
   const history = useHistory();
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(userEmail ? userEmail : "")
   const [address, setAddress] = useState("");
 
 const orderData = {
@@ -286,7 +286,7 @@ const orderData = {
               <TextField onChange={handleChange} fullWidth id="address" label="Address" variant="outlined" />
             </SummaryItem>
             <SummaryItem>
-              <TextField onChange={handleChange} fullWidth id="email" label="Email" variant="outlined" />
+              <TextField onChange={handleChange} fullWidth id="email" label="Email" defaultValue={userEmail} variant="outlined" />
             </SummaryItem>
               <CheckoutButton onClick={handleCheckout}>CHECKOUT NOW</CheckoutButton>
 
