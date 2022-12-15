@@ -91,10 +91,7 @@ const Footer = () => {
       <Left>
         <Logo>BAGS.</Logo>
         <Desc>
-          Hi I am trying to create a conflit here so that we can try it out
-           There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don’t look even slightly believable.
+          Launched in 2022, Bags.com is a platform for the highest quality backpacks for gamers, professionals, students and travellers. We believe that backpacks should be affordable, long-lasting and fashionable. This is the vision we aspire to deliver, every single day.
         </Desc>
         <SocialContainer>
           <SocialIcon color="3B5999">
