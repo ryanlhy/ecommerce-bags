@@ -91,7 +91,8 @@ const Footer = () => {
       <Left>
         <Logo>BAGS.</Logo>
         <Desc>
-          There are many variations of passages of Lorem Ipsum available, but
+          Hi I am trying to create a conflit here so that we can try it out
+           There are many variations of passages of Lorem Ipsum available, but
           the majority have suffered alteration in some form, by injected
           humour, or randomised words which don’t look even slightly believable.
         </Desc>

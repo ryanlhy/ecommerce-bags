@@ -86,6 +86,7 @@ const Login = () => {
     try {
       const user = await signInWithEmailAndPassword(auth, email, password);
       const getUserId = user.user.uid;
+      console.log(getUserId)
       dispatch(loginStart)
       dispatch(loginSuccess({getUserId, email}));
       history.push("/"); // redirect to home page
