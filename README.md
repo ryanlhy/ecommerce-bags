@@ -14,17 +14,10 @@ Welcome to Ecommerce Bags, an online store for high-quality bags and accessories
 - HTML: The structure and content of the website is created using HTML.
 - CSS: The styling and layout of the website is created using CSS.
 - JavaScript: The website uses JavaScript for interactivity, such as adding items to the shopping cart.
-- jQuery: The website uses the jQuery library for convenience functions and DOM manipulation.
-- PHP: The server-side logic of the website, such as processing orders and storing customer information, is implemented using PHP.
-- MySQL: The website uses a MySQL database to store customer and order information.
+- MongoDB: The website uses a MongoDB database to store order and product information.
+- Firebase: The website uses firebase to authenticate email address and password
 - [Material UI](https://material-ui.com/): The website uses the Material UI library for implementing Google's Material Design principles and providing a set of React components for building user interfaces.
 - React
-
-## Development Notes
-
-- The website is built using a responsive design approach, ensuring that it looks and works well on a variety of devices.
-- The shopping cart and checkout process is implemented using sessions and cookies to track the items in the cart and customer information.
-- The website is secured using SSL encryption to protect sensitive information, such as payment details.
 
 ## Future Improvements
 
