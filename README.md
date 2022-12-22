@@ -18,6 +18,8 @@ Welcome to Ecommerce Bags, an online store for high-quality bags and accessories
 - Firebase: The website uses firebase to authenticate email address and password
 - [Material UI](https://material-ui.com/): The website uses the Material UI library for implementing Google's Material Design principles and providing a set of React components for building user interfaces.
 - React
+- Express
+- Node
 
 ## Future Improvements
 
