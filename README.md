@@ -2,6 +2,9 @@
 
 Welcome to Ecommerce Bags, an online store for high-quality bags and accessories.
 
+<li> Website (Front-end): https://ecommerce-bags.vercel.app
+<li> Backend: https://ecommerce-bags-backend.cyclic.app/products
+
 ## Features
 
 - Browse and shop for a variety of bags and accessories, including backpacks, tote bags, and wallets
@@ -35,5 +38,3 @@ Welcome to Ecommerce Bags, an online store for high-quality bags and accessories
 
 We hope you enjoy shopping with Ecommerce Bags! If you have any feedback or suggestions for improvement, please don't hesitate to let us know.
 
-<li> Website (Front-end): https://ecommerce-bags.vercel.app
-<li> Backend: https://ecommerce-bags-backend.cyclic.app/products
