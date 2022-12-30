@@ -9,6 +9,12 @@ Welcome to Ecommerce Bags, an online store for high-quality bags and accessories
 - Add items to your shopping cart and proceed to checkout
 - Create an account to save your billing and shipping information for faster checkout in the future
 
+## User Interface deployed in Vercel
+![image](https://user-images.githubusercontent.com/103638962/210054742-bc2098f2-f708-4f6d-ac6c-f227d63c8b4b.png)
+
+## Backend deployed with cyclic (orders model)
+![image](https://user-images.githubusercontent.com/103638962/210055058-e89d9777-ce74-4e71-b90b-49f999bec0f6.png)
+
 ## Technologies Used
 
 - HTML: The structure and content of the website is created using HTML.
