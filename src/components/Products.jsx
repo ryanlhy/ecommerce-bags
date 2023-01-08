@@ -6,10 +6,22 @@ import axios from "axios";
 
 const Container = styled.div`
   padding: 20px;
+  // display: flex;
+  // flex-wrap: wrap;
+  // justify-content: space-between;
+`;
+
+const Title = styled.h1`
+  font-size: 50px;
+  text-align: center;
+`;
+
+const ProductContainer = styled.div`
+  padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-`;
+`
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -32,14 +44,17 @@ const Products = () => {
 
   return (
     <Container>
+      <Title>BAGS</Title>
+      <ProductContainer>
         {
-        products===0 ? 
-        popularProducts.map((item) => (
-          <Product item={item} key={item.id} />
-        )):
-        products.map((item) => (
-          <Product item={item} key={item._id} />
-        ))}
+          products===0 ? 
+          popularProducts.map((item) => (
+            <Product item={item} key={item.id} />
+            )):
+            products.map((item) => (
+              <Product item={item} key={item._id} />
+              ))}
+      </ProductContainer>
     </Container>
   );
 };
